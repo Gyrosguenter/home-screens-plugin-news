@@ -1,0 +1,100 @@
+{
+  "id": "news-images",
+  "name": "Nachrichten mit Bildern",
+  "version": "0.1.0",
+  "description": "Aktuelle Schlagzeilen mit Vorschaubild, Quelle und Alter — mehrere Feeds abwechselnd gemischt",
+  "author": "Gyrosguenter",
+  "license": "MIT",
+  "minAppVersion": "1.0.0",
+  "moduleType": "news-images",
+  "category": "News & Finance",
+  "icon": "Newspaper",
+
+  "defaultConfig": {
+    "title": "Nachrichten",
+    "feeds": "https://www.merkur.de/muenchen/rssfeed.rdf https://rss.sueddeutsche.de/rss/Muenchen https://www.spiegel.de/schlagzeilen/index.rss https://www.welt.de/feeds/latest.rss",
+    "maxItems": 5,
+    "requireImage": true,
+    "showSource": true,
+    "maxAgeHours": 72,
+    "refreshIntervalMs": 300000
+  },
+
+  "defaultSize": { "w": 800, "h": 1060 },
+
+  "defaultStyle": {
+    "padding": 20,
+    "fontSize": 22,
+    "backgroundColor": "rgba(0, 0, 0, 0.4)"
+  },
+
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "title": "Titel",
+        "description": "Überschrift des Moduls. Leer = keine Überschrift.",
+        "ui:widget": "text",
+        "ui:placeholder": "Nachrichten",
+        "ui:group": "Anzeige"
+      },
+      "feeds": {
+        "type": "string",
+        "title": "RSS-Feeds",
+        "description": "Feed-Adressen, getrennt durch Leerzeichen oder Komma. \"local\" = lokale Google-News für den eingestellten Standort. Die Feeds werden abwechselnd gemischt.",
+        "ui:widget": "text",
+        "ui:group": "Quellen"
+      },
+      "maxItems": {
+        "type": "number",
+        "title": "Anzahl Meldungen",
+        "minimum": 1,
+        "maximum": 10,
+        "ui:widget": "slider",
+        "ui:step": 1,
+        "ui:group": "Anzeige"
+      },
+      "requireImage": {
+        "type": "boolean",
+        "title": "Nur Meldungen mit Bild",
+        "ui:widget": "toggle",
+        "ui:group": "Anzeige"
+      },
+      "showSource": {
+        "type": "boolean",
+        "title": "Quelle anzeigen",
+        "ui:widget": "toggle",
+        "ui:group": "Anzeige"
+      },
+      "maxAgeHours": {
+        "type": "number",
+        "title": "Maximales Alter (Stunden)",
+        "description": "Ältere Meldungen werden ausgeblendet. 0 = kein Limit.",
+        "minimum": 0,
+        "maximum": 168,
+        "ui:widget": "slider",
+        "ui:step": 6,
+        "ui:group": "Quellen"
+      },
+      "refreshIntervalMs": {
+        "type": "number",
+        "title": "Aktualisierung (ms)",
+        "minimum": 60000,
+        "maximum": 1800000,
+        "ui:widget": "slider",
+        "ui:step": 60000,
+        "ui:group": "Quellen"
+      }
+    }
+  },
+
+  "exports": {
+    "component": "default"
+  },
+
+  "dataRequirements": [],
+  "prefetchUrl": null,
+  "permissions": ["network"],
+  "allowedDomains": []
+}
