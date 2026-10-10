@@ -1,6 +1,6 @@
 {
   "name": "hs-plugin-news-images",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Home Screens plugin: news headlines with thumbnail images",
   "license": "MIT",
   "scripts": {

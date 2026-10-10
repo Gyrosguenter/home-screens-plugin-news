@@ -1,7 +1,7 @@
 {
   "id": "news-images",
   "name": "Nachrichten mit Bildern",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Aktuelle Schlagzeilen mit Vorschaubild, Quelle und Alter — mehrere Feeds abwechselnd gemischt",
   "author": "Gyrosguenter",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "title": "Nachrichten",
     "feeds": "https://www.merkur.de/muenchen/rssfeed.rdf https://rss.sueddeutsche.de/rss/Muenchen https://www.spiegel.de/schlagzeilen/index.rss https://www.welt.de/feeds/latest.rss",
     "maxItems": 5,
+    "textScale": 1,
     "requireImage": true,
     "showSource": true,
     "maxAgeHours": 72,
@@ -53,6 +54,16 @@
         "maximum": 10,
         "ui:widget": "slider",
         "ui:step": 1,
+        "ui:group": "Anzeige"
+      },
+      "textScale": {
+        "type": "number",
+        "title": "Schriftgröße der Meldungen",
+        "description": "1 = Standard. Verkleinert nur den Text, die Vorschaubilder bleiben gleich groß.",
+        "minimum": 0.6,
+        "maximum": 1.2,
+        "ui:widget": "slider",
+        "ui:step": 0.05,
         "ui:group": "Anzeige"
       },
       "requireImage": {

@@ -80,7 +80,19 @@ function Thumbnail({ url }: { url: string | null }) {
   );
 }
 
-function Row({ item, now, showSource, last }: { item: DisplayItem; now: number; showSource: boolean; last: boolean }) {
+function Row({
+  item,
+  now,
+  showSource,
+  last,
+  textScale,
+}: {
+  item: DisplayItem;
+  now: number;
+  showSource: boolean;
+  last: boolean;
+  textScale: number;
+}) {
   const ago = timeAgo(item.timestamp, now);
   const meta = [showSource ? item.source : '', ago].filter(Boolean).join(' · ');
   return (
@@ -98,7 +110,7 @@ function Row({ item, now, showSource, last }: { item: DisplayItem; now: number; 
       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '0.3em' }}>
         <div
           style={{
-            fontSize: '1.05em',
+            fontSize: `${(1.05 * textScale).toFixed(3)}em`,
             fontWeight: 600,
             lineHeight: 1.25,
             display: '-webkit-box',
@@ -109,7 +121,7 @@ function Row({ item, now, showSource, last }: { item: DisplayItem; now: number; 
         >
           {item.title}
         </div>
-        {meta && <div style={{ fontSize: '0.7em', opacity: 0.65 }}>{meta}</div>}
+        {meta && <div style={{ fontSize: `${(0.7 * textScale).toFixed(3)}em`, opacity: 0.65 }}>{meta}</div>}
       </div>
     </div>
   );
@@ -122,6 +134,8 @@ export default function NewsImagesPlugin({ config, style }: PluginComponentProps
   const showSource = config.showSource !== false;
   const maxAgeHours = Math.max(0, Number(config.maxAgeHours ?? 72) || 0);
   const refreshMs = Math.max(60000, Number(config.refreshIntervalMs) || DEFAULT_REFRESH_MS);
+  // Verkleinert nur die Schrift der Meldungen; Vorschaubilder bleiben so groß.
+  const textScale = Math.min(1.2, Math.max(0.6, Number(config.textScale) || 1));
   const title = typeof config.title === 'string' ? config.title.trim() : 'Nachrichten';
 
   const feeds = useFeeds(feedUrls, refreshMs);
@@ -152,7 +166,14 @@ export default function NewsImagesPlugin({ config, style }: PluginComponentProps
       {items && items.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7em', minHeight: 0 }}>
           {items.map((item, i) => (
-            <Row key={item.key} item={item} now={now} showSource={showSource} last={i === items.length - 1} />
+            <Row
+              key={item.key}
+              item={item}
+              now={now}
+              showSource={showSource}
+              last={i === items.length - 1}
+              textScale={textScale}
+            />
           ))}
         </div>
       )}
